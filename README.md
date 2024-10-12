@@ -63,3 +63,14 @@ Las contribuciones son bienvenidas. Para contribuir al proyecto, sigue estos pas
 
 ¡Gracias por tu interés en contribuir a este proyecto!
 Si necesitas más secciones o ajustes, házmelo saber.
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Puedes utilizar, modificar y distribuir este proyecto siempre que se mantenga el aviso de copyright y la licencia.
+
+### Resumen de la Licencia MIT
+
+- Permite el uso, copia, modificación, fusión, publicación, distribución, sublicencia y venta de copias del software.
+- Se proporciona el software "tal cual", sin ninguna garantía de ningún tipo.
+
+Para más información, consulta el archivo [LICENSE](LICENSE).
