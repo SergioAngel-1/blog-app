@@ -70,7 +70,7 @@ Este proyecto está bajo la licencia MIT. Puedes utilizar, modificar y distribui
 
 ### Resumen de la Licencia MIT
 
-- Permite el uso, copia, modificación, fusión, publicación, distribución, sublicencia y venta de copias del software.
+- Permite el uso, copia, modificación, fusión, publicación, distribución, sublicencia y venta de copias del software. 
 - Se proporciona el software "tal cual", sin ninguna garantía de ningún tipo.
 
 Para más información, consulta el archivo [LICENSE](LICENSE).
