@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import axios from "axios";
 import { useToast } from "../hooks/useToast";
 import { useDarkMode } from "../hooks/useDarkMode";
 
@@ -26,17 +25,11 @@ const CreatePost = () => {
     const formData = new FormData(e.currentTarget);
 
     try {
-      await axios.post("http://localhost:3001/posts", {
-        title: formData.get("title"),
-        content: formData.get("content"),
-        category: formData.get("category"),
-        author: formData.get("author"),
-        date: new Date().toISOString().split("T")[0],
-      });
-
+      // In a real app, you would implement proper state management here
+      // For now, we'll just show a success message and redirect
       addToast({
         title: "Éxito",
-        message: "Post creado correctamente",
+        message: "Post creado correctamente (simulado)",
         type: "success",
       });
 

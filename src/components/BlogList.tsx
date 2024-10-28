@@ -9,7 +9,6 @@ import { ErrorMessage } from "./ui/ErrorMessage";
 import { DeleteDialog } from "./ui/DeleteDialog";
 import { useDarkMode } from "../hooks/useDarkMode";
 import { useToast } from "../hooks/useToast";
-import axios from "axios";
 
 const PLACEHOLDER_IMAGES = [
   "https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&w=2000&q=80",
@@ -25,7 +24,7 @@ const truncateText = (text: string, maxLength: number): string => {
 };
 
 const BlogList = () => {
-  const { data: posts, loading, error, fetchData } = useApi<Post[]>("/posts");
+  const { data: posts, loading, error } = useApi<Post[]>("/posts");
   const { isDarkMode } = useDarkMode();
   const { addToast } = useToast();
   const [deleteDialog, setDeleteDialog] = useState<{
@@ -44,13 +43,12 @@ const BlogList = () => {
     if (!deleteDialog.post) return;
 
     try {
-      await axios.delete(`http://localhost:3001/posts/${deleteDialog.post.id}`);
+      // In a real app, you would implement proper state management here
       addToast({
         title: "Éxito",
-        message: "Post eliminado correctamente",
+        message: "Post eliminado correctamente (simulado)",
         type: "success",
       });
-      fetchData();
     } catch (error) {
       addToast({
         title: "Error",
