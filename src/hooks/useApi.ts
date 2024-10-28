@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios, { AxiosError } from "axios";
 import { useBlogStore } from "../store/blogStore";
+import { Post } from "../types";
 
 interface ApiState<T> {
   data: T | null;
@@ -22,21 +23,21 @@ export function useApi<T>(endpoint: string) {
 
     try {
       if (posts.length === 0) {
-        const response = await axios.get<T>(`/db.json`);
-        const initialPosts = response.data.posts;
-        setPosts(initialPosts);
+        const response = await axios.get<{ posts: Post[] }>("/db.json");
+        setPosts(response.data.posts);
       }
 
       let data: T;
       if (endpoint === "/posts") {
-        data = posts as T;
+        data = posts as unknown as T;
       } else if (endpoint.startsWith("/posts/")) {
         const id = endpoint.split("/")[2];
-        data = posts.find((post) => post.id === Number(id)) as T;
+        const post = posts.find((post) => post.id === Number(id));
 
-        if (!data) {
+        if (!post) {
           throw new Error("Post not found");
         }
+        data = post as unknown as T;
       } else {
         throw new Error("Invalid endpoint");
       }
