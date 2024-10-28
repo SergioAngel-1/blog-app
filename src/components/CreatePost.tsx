@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useToast } from "../hooks/useToast";
 import { useDarkMode } from "../hooks/useDarkMode";
+import { useBlogStore } from "../store/blogStore";
 
 const CATEGORIES = [
   "Tecnología",
@@ -19,17 +20,23 @@ const CreatePost = () => {
   const navigate = useNavigate();
   const { addToast } = useToast();
   const { isDarkMode } = useDarkMode();
+  const addPost = useBlogStore((state) => state.addPost);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
     try {
-      // In a real app, you would implement proper state management here
-      // For now, we'll just show a success message and redirect
+      addPost({
+        title: formData.get("title") as string,
+        content: formData.get("content") as string,
+        category: formData.get("category") as string,
+        author: formData.get("author") as string,
+      });
+
       addToast({
         title: "Éxito",
-        message: "Post creado correctamente (simulado)",
+        message: "Post creado correctamente",
         type: "success",
       });
 

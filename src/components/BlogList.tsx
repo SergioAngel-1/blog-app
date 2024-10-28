@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Edit2, Trash2, ArrowRight, PenSquare, Tag, User } from "lucide-react";
+import { Edit2, Trash2, ArrowRight, Tag, User } from "lucide-react";
 import { useApi } from "../hooks/useApi";
 import { Post } from "../types";
 import { Loader } from "./ui/Loader";
@@ -9,6 +9,7 @@ import { ErrorMessage } from "./ui/ErrorMessage";
 import { DeleteDialog } from "./ui/DeleteDialog";
 import { useDarkMode } from "../hooks/useDarkMode";
 import { useToast } from "../hooks/useToast";
+import { useBlogStore } from "../store/blogStore";
 
 const PLACEHOLDER_IMAGES = [
   "https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&w=2000&q=80",
@@ -27,6 +28,7 @@ const BlogList = () => {
   const { data: posts, loading, error } = useApi<Post[]>("/posts");
   const { isDarkMode } = useDarkMode();
   const { addToast } = useToast();
+  const deletePost = useBlogStore((state) => state.deletePost);
   const [deleteDialog, setDeleteDialog] = useState<{
     isOpen: boolean;
     post: Post | null;
@@ -43,10 +45,10 @@ const BlogList = () => {
     if (!deleteDialog.post) return;
 
     try {
-      // In a real app, you would implement proper state management here
+      deletePost(deleteDialog.post.id);
       addToast({
         title: "Éxito",
-        message: "Post eliminado correctamente (simulado)",
+        message: "Post eliminado correctamente",
         type: "success",
       });
     } catch (error) {

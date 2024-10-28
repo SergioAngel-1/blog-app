@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useToast } from "../hooks/useToast";
@@ -7,6 +7,7 @@ import { Post } from "../types";
 import { Loader } from "./ui/Loader";
 import { ErrorMessage } from "./ui/ErrorMessage";
 import { useApi } from "../hooks/useApi";
+import { useBlogStore } from "../store/blogStore";
 
 const CATEGORIES = [
   "Tecnología",
@@ -25,17 +26,25 @@ const EditPost = () => {
   const { addToast } = useToast();
   const { isDarkMode } = useDarkMode();
   const { data: post, loading, error } = useApi<Post>(`/posts/${id}`);
+  const updatePost = useBlogStore((state) => state.updatePost);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
     try {
-      // In a real app, you would implement proper state management here
-      // For now, we'll just show a success message and redirect
+      if (!id) throw new Error("Post ID not found");
+
+      updatePost(Number(id), {
+        title: formData.get("title") as string,
+        content: formData.get("content") as string,
+        category: formData.get("category") as string,
+        author: formData.get("author") as string,
+      });
+
       addToast({
         title: "Éxito",
-        message: "Post actualizado correctamente (simulado)",
+        message: "Post actualizado correctamente",
         type: "success",
       });
 
