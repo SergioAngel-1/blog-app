@@ -23,7 +23,7 @@ export function useApi<T>(endpoint: string) {
 
     try {
       if (posts.length === 0) {
-        const response = await axios.get<{ posts: Post[] }>("/db.json");
+        const response = await axios.get<{ posts: Post[] }>("./db.json");
         setPosts(response.data.posts);
       }
 
